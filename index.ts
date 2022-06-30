@@ -1,10 +1,17 @@
 import { RungeKutta } from './RungeKutta';
 let rungeKutta: RungeKutta = new RungeKutta();
 
+console.log("hola");
 let tiempo: number = rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01)
+console.log("hola");
 console.log(tiempo);
 
-/*import { HTMLUtils } from './HTMLUtils';
+
+
+
+
+
+import { HTMLUtils } from './HTMLUtils';
 import { Simulador } from './Simulador';
 import { SimuladorColas } from './SimuladorColas';
 import './style.css';
@@ -77,7 +84,7 @@ btnSimular.addEventListener('click', () => {
 });
 
 // Mostramos las tablas de Runge-Kutta.
-btnRK.addEventListener('click', () => {
+/*btnRK.addEventListener('click', () => {
   mostrarRK();
 });
 
@@ -115,39 +122,12 @@ const mostrarRK = () => {
       divRungeKutta.innerHTML += tabla;
     }
   }
-}
+}*/
 
 const simular = () => {
   // Validamos los parámetros ingresados por el usuario.
   if (!validarParametros()) return;
 
-  switch (cboJuntarVentanilla.value) {
-    // Simulación juntando las ventanillas de venta y facturación.
-    case "1": {
-      var startTime = performance.now()
-      HTMLUtils.limpiarTablaSimulacion(tablaSimulacionAlternativa, cantEncabezadosTablaSimulacionAlt, cantSubEncabezadosTablaSimulacionAlt);
-      console.log(`La limpieza tardó ${performance.now() - startTime} milisegundos`);
-
-      // Realizamos la simulación alternativa.
-      startTime = performance.now();
-      simulador = new SimuladorColasAlternativo();
-      simulador.simular(n, eventoDesde, mediaLlegadaPasajero, AFinFacturacion, BFinFacturacion, mediaVentaBillete, mediaChequeoBilletes, desEstChequeoBilletes, mediaControlMetales, mediaPasoEntreZonas);
-      console.log(`La simulación tardó ${performance.now() - startTime} milisegundos`);
-
-      matrizEstado = simulador.getMatrizEstado();
-      cantMaxPasajeros = simulador.getCantMaxPasajerosEnSistema();
-      
-      // Cargamos la tabla a mostrar.
-      startTime = performance.now()
-      HTMLUtils.completarEncabezadosPasajeros(cantMaxPasajeros, tablaSimulacionAlternativa, colPasajerosAlt);
-      HTMLUtils.llenarTablaSimulacion(matrizEstado, indicesEventosCandidatosAlt, tablaSimulacionAlternativa);
-      console.log(`La renderización tardó ${performance.now() - startTime} milisegundos`);
-      HTMLUtils.mostrarSeccion(divTablaSimulacionAlternativa);
-      break;
-    }
-
-    // Simulación con las ventanillas de venta y facturación separadas.
-    case "2": {
       var startTime = performance.now();
       HTMLUtils.limpiarTablaSimulacion(tablaSimulacion, cantEncabezadosTablaSimulacion, cantSubEncabezadosTablaSimulacion);
       console.log(`La limpieza tardó ${performance.now() - startTime} milisegundos`);
@@ -155,15 +135,15 @@ const simular = () => {
       // Realizamos la simulación.
       startTime = performance.now();
       simulador = new SimuladorColas();
-      simulador.simular(n, eventoDesde, mediaLlegadaPasajero, AFinFacturacion, BFinFacturacion, mediaVentaBillete, mediaChequeoBilletes, desEstChequeoBilletes, mediaControlMetales, mediaPasoEntreZonas);
+      //simulador.simular(n, eventoDesde, mediaLlegadaPasajero, AFinFacturacion, BFinFacturacion, mediaVentaBillete, mediaChequeoBilletes, desEstChequeoBilletes, mediaControlMetales, mediaPasoEntreZonas);
       console.log(`La simulación tardó ${performance.now() - startTime} milisegundos`);
 
-      matrizEstado = simulador.getMatrizEstado();
-      cantMaxPasajeros = simulador.getCantMaxPasajerosEnSistema();
+      //matrizEstado = simulador.getMatrizEstado();
+      //cantMaxPasajeros = simulador.getCantMaxPasajerosEnSistema();
 
       // Cargamos la tabla a mostrar.
       startTime = performance.now();
-      HTMLUtils.completarEncabezadosPasajeros(cantMaxPasajeros, tablaSimulacion, colPasajeros);
+      HTMLUtils.completarEncabezadosClientes(cantMaxPasajeros, tablaSimulacion, colPasajeros);
       HTMLUtils.llenarTablaSimulacion(matrizEstado, indicesEventosCandidatos, tablaSimulacion);
       console.log(`La renderización tardó ${performance.now() - startTime} milisegundos`);
       HTMLUtils.mostrarSeccion(divTablaSimulacion);
@@ -217,4 +197,3 @@ function validarParametros(): boolean {
   }
   return true;
 }
-*/
