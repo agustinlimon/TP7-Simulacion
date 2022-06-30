@@ -9,7 +9,7 @@ export class RungeKutta {
     return  -60 - 0.7 * p;
   }
 
-  public ecuacionMenu(p: number) {
+  public ecuacionMenu(p: number): number {
     return  -115 - 0.7 * p;
   }
 
@@ -23,7 +23,7 @@ export class RungeKutta {
     let p0: number = p;
 
     while (true) {
-      if (p <= 0) break;
+      if (p0 <= 0) break;
       fila = [];
       fila.push(t0, p0);
 
@@ -47,7 +47,7 @@ export class RungeKutta {
     let p0: number = p;
 
     while (true) {
-      if (p <= 0) break;
+      if (p0 <= 0) break;
       fila = [];
       fila.push(t0, p0);
 
@@ -71,7 +71,7 @@ export class RungeKutta {
     let p0: number = p;
 
     while (true) {
-      if (p <= 0) break;
+      if (p0 <= 0) break;
       fila = [];
       fila.push(t0, p0);
 
@@ -86,6 +86,6 @@ export class RungeKutta {
       fila.push(k1, k2, k3, k4, t0, p0);
       this.matrizRK.push(fila);
     }
-    return this.matrizRK[this.matrizRK.length-1][6] * 2;
+    return this.matrizRK[this.matrizRK.length-1][6] * 6;
   }
 }

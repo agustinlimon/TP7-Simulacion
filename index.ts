@@ -1,20 +1,16 @@
-import { RungeKutta } from './RungeKutta';
-let rungeKutta: RungeKutta = new RungeKutta();
-
-console.log("hola");
-let tiempo: number = rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01)
-console.log("hola");
-console.log(tiempo);
-
-
-
-
-
-
 import { HTMLUtils } from './HTMLUtils';
+import { RungeKutta } from './RungeKutta';
 import { Simulador } from './Simulador';
 import { SimuladorColas } from './SimuladorColas';
 import './style.css';
+
+let rungeKutta: RungeKutta = new RungeKutta();
+let rkAtentados: Array<number[][]> = [];
+
+let tiempo: number = rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01)
+rkAtentados.push(rungeKutta.getMatrizRK())
+console.log(tiempo);
+
 
 // Definición de los cuadros de texto de la interfaz de usuario.
 const txtCantNros: HTMLInputElement = document.getElementById('txtCantNros') as HTMLInputElement;
@@ -147,9 +143,6 @@ const simular = () => {
       HTMLUtils.llenarTablaSimulacion(matrizEstado, indicesEventosCandidatos, tablaSimulacion);
       console.log(`La renderización tardó ${performance.now() - startTime} milisegundos`);
       HTMLUtils.mostrarSeccion(divTablaSimulacion);
-      break;
-    }
-  }
 }
 
 // Validación de los parámetros del usuario.
