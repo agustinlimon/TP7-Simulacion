@@ -1,4 +1,10 @@
-import { HTMLUtils } from './HTMLUtils';
+import { RungeKutta } from './RungeKutta';
+let rungeKutta: RungeKutta = new RungeKutta();
+
+let tiempo: number = rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01)
+console.log(tiempo);
+
+/*import { HTMLUtils } from './HTMLUtils';
 import { Simulador } from './Simulador';
 import { SimuladorColas } from './SimuladorColas';
 import './style.css';
@@ -211,3 +217,4 @@ function validarParametros(): boolean {
   }
   return true;
 }
+*/

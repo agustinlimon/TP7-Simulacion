@@ -6,5 +6,4 @@ import { Simulador } from "./Simulador";
 import { Utils } from "./Utils";
 
 export class SimuladorColas extends Simulador { 
-  
 }
