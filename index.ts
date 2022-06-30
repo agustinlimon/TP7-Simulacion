@@ -11,7 +11,7 @@ let tiempo: number = rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01)
 rkAtentados.push(rungeKutta.getMatrizRK())
 console.log(tiempo);
 
-
+/*
 // Definición de los cuadros de texto de la interfaz de usuario.
 const txtCantNros: HTMLInputElement = document.getElementById('txtCantNros') as HTMLInputElement;
 const txtEventoDesde: HTMLInputElement = document.getElementById('txtEventoDesde') as HTMLInputElement;
@@ -29,25 +29,21 @@ const cboJuntarVentanilla: HTMLSelectElement = document.getElementById('cboJunta
 
 // Definición de la secciones de la simulación.
 const divTablaSimulacion: HTMLDivElement = document.getElementById('divTablaSimulacion') as HTMLDivElement;
-const divTablaSimulacionAlternativa: HTMLDivElement = document.getElementById('divTablaSimulacionAlternativa') as HTMLDivElement;
 const divRungeKutta: HTMLDivElement = document.getElementById('divRungeKutta') as HTMLDivElement;
 
 // Definición de la tablas de simulación de colas.
 const tablaSimulacion: HTMLTableElement = document.getElementById('tablaSimulacion') as HTMLTableElement;
 const cantEncabezadosTablaSimulacion = tablaSimulacion.rows[0].cells.length;
 const cantSubEncabezadosTablaSimulacion = tablaSimulacion.rows[1].cells.length;
-const tablaSimulacionAlternativa: HTMLTableElement = document.getElementById('tablaSimulacionAlternativa') as HTMLTableElement;
-const cantEncabezadosTablaSimulacionAlt = tablaSimulacionAlternativa.rows[0].cells.length;
-const cantSubEncabezadosTablaSimulacionAlt = tablaSimulacionAlternativa.rows[1].cells.length;
 const indicesEventosCandidatos: number[] = [5, 10, 14, 17, 20, 24, 26, 29];
-const indicesEventosCandidatosAlt: number[] = [5, 10, 14, 17, 18, 22, 24, 27];
 const colPasajeros: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Minuto llegada', 'Minuto llegada de venta a facturación', 'Minuto llegada de facturación a control', 'Minuto llegada de chequeo a control', 'Minuto llegada de control a embarque'];
-const colPasajerosAlt: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Minuto llegada', 'Minuto llegada de venta-facturación a control', 'Minuto llegada de chequeo a control', 'Minuto llegada de control a embarque'];
 
 // Definición de botones de la interfaz de usuario.
 const btnSimular: HTMLButtonElement = document.getElementById('btnSimular') as HTMLButtonElement;
 const btnRK: HTMLButtonElement = document.getElementById('btnRK') as HTMLButtonElement;
 const btnRKAlternativo: HTMLButtonElement = document.getElementById('btnRKAlternativo') as HTMLButtonElement;
+
+
 
 // Definición de los objetos que realizan la simulación de colas.
 let simulador: Simulador;
@@ -80,7 +76,7 @@ btnSimular.addEventListener('click', () => {
 });
 
 // Mostramos las tablas de Runge-Kutta.
-/*btnRK.addEventListener('click', () => {
+btnRK.addEventListener('click', () => {
   mostrarRK();
 });
 
@@ -118,7 +114,7 @@ const mostrarRK = () => {
       divRungeKutta.innerHTML += tabla;
     }
   }
-}*/
+}
 
 const simular = () => {
   // Validamos los parámetros ingresados por el usuario.
@@ -189,4 +185,4 @@ function validarParametros(): boolean {
     return false;
   }
   return true;
-}
+}*/
