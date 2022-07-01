@@ -1,33 +1,19 @@
 import { HTMLUtils } from './HTMLUtils';
-import { RungeKutta } from './RungeKutta';
 import { Simulador } from './Simulador';
 import { SimuladorColas } from './SimuladorColas';
 import './style.css';
 
-let rungeKutta: RungeKutta = new RungeKutta();
-let rkAtentados: Array<number[][]> = [];
-
-let tiempo: number = rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01)
-rkAtentados.push(rungeKutta.getMatrizRK())
-console.log(tiempo);
-
-/*
 // Definición de los cuadros de texto de la interfaz de usuario.
 const txtCantNros: HTMLInputElement = document.getElementById('txtCantNros') as HTMLInputElement;
 const txtEventoDesde: HTMLInputElement = document.getElementById('txtEventoDesde') as HTMLInputElement;
-const txtMediaLlegadaPasajeros: HTMLInputElement = document.getElementById('txtMediaLlegadaPasajeros') as HTMLInputElement;
-const txtAFinDeFacturacion: HTMLInputElement = document.getElementById('txtAFinDeFacturacion') as HTMLInputElement;
-const txtBFinDeFacturacion: HTMLInputElement = document.getElementById('txtBFinDeFacturacion') as HTMLInputElement;
-const txtMediaFinVentaBillete: HTMLInputElement = document.getElementById('txtMediaFinVentaBillete') as HTMLInputElement;
-const txtMediaFinChequeoBillete: HTMLInputElement = document.getElementById('txtMediaFinChequeoBillete') as HTMLInputElement;
-const txtDesEstFinChequeoBillete: HTMLInputElement = document.getElementById('txtDesEstFinChequeoBillete') as HTMLInputElement;
-const txtMediaFinControlMetales: HTMLInputElement = document.getElementById('txtMediaFinControlMetales') as HTMLInputElement;
-const txtMediaFinPasoEntreZonas: HTMLInputElement = document.getElementById('txtMediaFinPasoEntreZonas') as HTMLInputElement;
+const txtMediaLlegadaClientes: HTMLInputElement = document.getElementById('txtMediaLlegadaClientes') as HTMLInputElement;
+const txtDesEstLlegadaClientes: HTMLInputElement = document.getElementById('txtDesEstLlegadaClientes') as HTMLInputElement;
+const txtMediaFinEntregaPedido: HTMLInputElement = document.getElementById('txtMediaFinEntregaPedido') as HTMLInputElement;
+const txtAFinConsumicionPedido: HTMLInputElement = document.getElementById('txtAFinConsumicionPedido') as HTMLInputElement;
+const txtBFinConsumicionPedido: HTMLInputElement = document.getElementById('txtBFinConsumicionPedido') as HTMLInputElement;
+const txtAFinUtilizacionMesa: HTMLInputElement = document.getElementById('txtAFinUtilizacionMesa') as HTMLInputElement;
+const txtBFinUtilizacionMesa: HTMLInputElement = document.getElementById('txtBFinUtilizacionMesa') as HTMLInputElement;
 
-// Definición de los combo box de la interfaz de usuario.
-const cboJuntarVentanilla: HTMLSelectElement = document.getElementById('cboJuntarVentanilla') as HTMLSelectElement;
-
-// Definición de la secciones de la simulación.
 const divTablaSimulacion: HTMLDivElement = document.getElementById('divTablaSimulacion') as HTMLDivElement;
 const divRungeKutta: HTMLDivElement = document.getElementById('divRungeKutta') as HTMLDivElement;
 
@@ -35,42 +21,36 @@ const divRungeKutta: HTMLDivElement = document.getElementById('divRungeKutta') a
 const tablaSimulacion: HTMLTableElement = document.getElementById('tablaSimulacion') as HTMLTableElement;
 const cantEncabezadosTablaSimulacion = tablaSimulacion.rows[0].cells.length;
 const cantSubEncabezadosTablaSimulacion = tablaSimulacion.rows[1].cells.length;
-const indicesEventosCandidatos: number[] = [5, 10, 14, 17, 20, 24, 26, 29];
-const colPasajeros: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Minuto llegada', 'Minuto llegada de venta a facturación', 'Minuto llegada de facturación a control', 'Minuto llegada de chequeo a control', 'Minuto llegada de control a embarque'];
+const indicesEventosCandidatos: number[] = [6, 10, 18, 19, 22, 25, 26, 29];
+const colPasajeros: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Segundo llegada'];
 
 // Definición de botones de la interfaz de usuario.
 const btnSimular: HTMLButtonElement = document.getElementById('btnSimular') as HTMLButtonElement;
 const btnRK: HTMLButtonElement = document.getElementById('btnRK') as HTMLButtonElement;
-const btnRKAlternativo: HTMLButtonElement = document.getElementById('btnRKAlternativo') as HTMLButtonElement;
-
-
 
 // Definición de los objetos que realizan la simulación de colas.
 let simulador: Simulador;
 let matrizEstado: string[][];
-let cantMaxPasajeros: number;
+let cantMaxClientes: number;
 
 // Definición de los parámetros.
 let n: number;
 let eventoDesde: number;
-let mediaLlegadaPasajero: number;
-let AFinFacturacion: number;
-let BFinFacturacion: number;
-let mediaVentaBillete: number;
-let mediaChequeoBilletes: number;
-let desEstChequeoBilletes: number;
-let mediaControlMetales: number;
-let mediaPasoEntreZonas: number;
+let mediaLlegadaClientes: number;
+let DesviacionLlegadaClientes: number;
+let mediaFinEntregaPedido: number;
+let AFinConsumicionPedido: number;
+let BFinConsumicionPedido: number;
+let AFinUtilizacionMesa: number;
+let BFinUtilizacionMesa: number;
 
 //Ocultamos la seccion en donde esta la tabla.
 HTMLUtils.ocultarSeccion(divTablaSimulacion);
-HTMLUtils.ocultarSeccion(divTablaSimulacionAlternativa);
 HTMLUtils.ocultarSeccion(divRungeKutta);
 
 // Disparamos la simulación.
 btnSimular.addEventListener('click', () => {
   HTMLUtils.ocultarSeccion(divTablaSimulacion);
-  HTMLUtils.ocultarSeccion(divTablaSimulacionAlternativa);
   HTMLUtils.ocultarSeccion(divRungeKutta);
   simular();
 });
@@ -80,37 +60,33 @@ btnRK.addEventListener('click', () => {
   mostrarRK();
 });
 
-btnRKAlternativo.addEventListener('click', () => {
-  mostrarRK();
-});
-
 const mostrarRK = () => {
   divRungeKutta.innerHTML = '';
   HTMLUtils.mostrarSeccion(divRungeKutta);
-  let rkAtentados: Array<number[][]> = simulador.getRKAtentados();
-  let rkFinesBloqueoCliente: Array<number[][]> = simulador.getRKFinesBloqueoCliente();
-  let rkFinesBloqueoServidor: Array<number[][]> = simulador.getRKFinesBloqueoServidor();
+  let rkCafe: Array<number[][]> = simulador.getRKCafe();
+  let rkCafeYMedialuna: Array<number[][]> = simulador.getRKCafeYMedialuna();
+  let rkMenu: Array<number[][]> = simulador.getRKMenu();
 
-  if (rkAtentados.length > 0) {
-    divRungeKutta.innerHTML += '<h1 class="text-center">Tablas de Runge-Kutta de tiempos de llegada de atentados:</h1>';
-    for (let i: number = 0; i < rkAtentados.length; i++) {
-      let tabla: string = HTMLUtils.crearTablaRK(rkAtentados[i], 'A');
+  if (rkCafe.length > 0) {
+    divRungeKutta.innerHTML += '<h1 class="text-center">Tabla de Runge-Kutta Cafe:</h1>';
+    for (let i: number = 0; i < rkCafe.length; i++) {
+      let tabla: string = HTMLUtils.crearTablaRK(rkCafe[i], 'P');
       divRungeKutta.innerHTML += tabla;
     }
   }
 
-  if (rkFinesBloqueoCliente.length > 0) {
-    divRungeKutta.innerHTML += '<h1 class="text-center">Tablas de Runge-Kutta de tiempos de bloqueo de llegadas:</h1>';
-    for (let i: number = 0; i < rkFinesBloqueoCliente.length; i++) {
-      let tabla: string = HTMLUtils.crearTablaRK(rkFinesBloqueoCliente[i], 'L');
+  if (rkCafeYMedialuna.length > 0) {
+    divRungeKutta.innerHTML += '<h1 class="text-center">Tabla de Runge-Kutta Cafe y Medialuna:</h1>';
+    for (let i: number = 0; i < rkCafeYMedialuna.length; i++) {
+      let tabla: string = HTMLUtils.crearTablaRK(rkCafeYMedialuna[i], 'P');
       divRungeKutta.innerHTML += tabla;
     }
   }
 
-  if (rkFinesBloqueoServidor.length > 0) {
-    divRungeKutta.innerHTML += '<h1 class="text-center">Tablas de Runge-Kutta de tiempos de bloqueo del empleado de Chequeo de Billetes:</h1>';
-    for (let i: number = 0; i < rkFinesBloqueoServidor.length; i++) {
-      let tabla: string = HTMLUtils.crearTablaRK(rkFinesBloqueoServidor[i], 'S');
+  if (rkMenu.length > 0) {
+    divRungeKutta.innerHTML += '<h1 class="text-center">Tabla de Runge-Kutta Menu:</h1>';
+    for (let i: number = 0; i < rkMenu.length; i++) {
+      let tabla: string = HTMLUtils.crearTablaRK(rkMenu[i], 'P');
       divRungeKutta.innerHTML += tabla;
     }
   }
@@ -127,15 +103,15 @@ const simular = () => {
       // Realizamos la simulación.
       startTime = performance.now();
       simulador = new SimuladorColas();
-      //simulador.simular(n, eventoDesde, mediaLlegadaPasajero, AFinFacturacion, BFinFacturacion, mediaVentaBillete, mediaChequeoBilletes, desEstChequeoBilletes, mediaControlMetales, mediaPasoEntreZonas);
+      simulador.simular(n, eventoDesde, mediaLlegadaClientes, DesviacionLlegadaClientes, mediaFinEntregaPedido, AFinConsumicionPedido, BFinConsumicionPedido, AFinUtilizacionMesa, BFinUtilizacionMesa);
       console.log(`La simulación tardó ${performance.now() - startTime} milisegundos`);
 
-      //matrizEstado = simulador.getMatrizEstado();
-      //cantMaxPasajeros = simulador.getCantMaxPasajerosEnSistema();
+      matrizEstado = simulador.getMatrizEstado();
+      cantMaxClientes = simulador.getCantMaxClientesEnSistema();
 
       // Cargamos la tabla a mostrar.
       startTime = performance.now();
-      HTMLUtils.completarEncabezadosClientes(cantMaxPasajeros, tablaSimulacion, colPasajeros);
+      HTMLUtils.completarEncabezadosClientes(cantMaxClientes, tablaSimulacion, colPasajeros);
       HTMLUtils.llenarTablaSimulacion(matrizEstado, indicesEventosCandidatos, tablaSimulacion);
       console.log(`La renderización tardó ${performance.now() - startTime} milisegundos`);
       HTMLUtils.mostrarSeccion(divTablaSimulacion);
@@ -148,21 +124,15 @@ function validarParametros(): boolean {
     return false;
   }
 
-  if ( Number(cboJuntarVentanilla.value) <= 0 || Number(cboJuntarVentanilla.value) > 2) {
-    alert('Seleccione si desea juntar las ventanillas.');
-    return false;
-  }
-
   n = Number(txtCantNros.value);
   eventoDesde = Number(txtEventoDesde.value);
-  mediaLlegadaPasajero = Number(txtMediaLlegadaPasajeros.value);
-  AFinFacturacion = Number(txtAFinDeFacturacion.value);
-  BFinFacturacion = Number(txtBFinDeFacturacion.value);
-  mediaVentaBillete = Number(txtMediaFinVentaBillete.value);
-  mediaChequeoBilletes = Number(txtMediaFinChequeoBillete.value);
-  desEstChequeoBilletes = Number(txtDesEstFinChequeoBillete.value);
-  mediaControlMetales = Number(txtMediaFinControlMetales.value);
-  mediaPasoEntreZonas = Number(txtMediaFinPasoEntreZonas.value);
+  mediaLlegadaClientes = Number(txtMediaLlegadaClientes.value);
+  DesviacionLlegadaClientes = Number(txtDesEstLlegadaClientes.value);
+  mediaFinEntregaPedido = Number(txtMediaFinEntregaPedido.value);
+  AFinConsumicionPedido = Number(txtAFinConsumicionPedido.value);
+  BFinConsumicionPedido = Number(txtBFinConsumicionPedido.value);
+  AFinUtilizacionMesa = Number(txtAFinUtilizacionMesa.value);
+  BFinUtilizacionMesa = Number(txtBFinUtilizacionMesa.value);
 
   if (n <= 0) {
     alert('La cantidad de eventos a generar debe ser mayor a cero.');
@@ -172,17 +142,17 @@ function validarParametros(): boolean {
     alert('El evento desde ingresado debe estar comprendido entre 0 y ' + n + '.');
     return false;
   }
-  if (mediaLlegadaPasajero < 0 || mediaVentaBillete < 0 || mediaChequeoBilletes < 0 || mediaControlMetales < 0 || mediaPasoEntreZonas < 0) {
+  if (mediaLlegadaClientes < 0 || mediaFinEntregaPedido < 0) {
     alert('La media no puede ser un valor negativo.');
     return false;
   }
-  if (AFinFacturacion >= BFinFacturacion) {
+  if (AFinConsumicionPedido >= BFinConsumicionPedido || AFinUtilizacionMesa  >= BFinUtilizacionMesa) {
     alert('El valor de "B" debe ser mayor a "A".');
     return false;
   }
-  if (desEstChequeoBilletes < 0){
+  if (DesviacionLlegadaClientes < 0){
     alert('La desviación estándar no puede ser un valor negativo.');
     return false;
   }
   return true;
-}*/
+}
