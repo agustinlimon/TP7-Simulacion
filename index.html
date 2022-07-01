@@ -192,115 +192,64 @@
               <th rowspan="2">Reloj (Segundos)</th>
               <th colspan="6">Llegada Cliente</th>
               <th colspan="4">Compra Ticket</th>
-              /////
-              <th colspan="7">Facturación equipaje</th>
-              <th colspan="3">Venta billete</th>
-              <th colspan="4">Chequeo billete</th>
-              <th colspan="2">Bloqueo Chequeo billete</th>
-              <th colspan="3">Control Metales</th>
-              <th colspan="3">Pase entre Venta y Facturación</th>
-              <th colspan="3">Pase entre Facturación y Control</th>
-              <th colspan="3">Pase entre Chequeo y Control</th>
-              <th colspan="3">Pase entre Control y Embarque</th>
-              <th rowspan="2">Cola De Pasajeros Bloqueados en la Entrada</th>
-              <th colspan="2">Empleado Facturación</th>
-              <th colspan="2">Empleado Venta Billete</th>
-              <th colspan="3">Empleado Chequeo Billete</th>
-              <th colspan="2">Empleado Control Metales</th>
+              <th colspan="7">Preparacion Comida</th>
+              <th colspan="3">Consumicion Comida</th>
+              <th colspan="3">Utilizacion Mesa</th>
+              <th colspan="2">Empleado Caja</th>
+              <th colspan="3">Empleados Preparacion</th>
               <th colspan="9">Métricas</th>
             </tr>
           
-            </tr>  
-              <!-- Tiempo entre Bloqueo -->
-              <th>RND valor beta</th>
-              <th>Tiempo Entre Bloqueos</th>
-              <th style="color: red">Próximo Bloqueo</th>
-              <th>RND</th>
-              <th>Objetivo Bloqueo</th>
-            
+            </tr>              
               <!-- Tiempo entre llegadas -->
-              <th>RND Tiempo Entre Llegadas</th>
+              <th>RND1</th>
+              <th>RND2</th>
               <th>Tiempo Entre Llegadas</th>
               <th style="color: red">Próxima Llegada</th>
               <th>RND Tipo Pasajero</th>
               <th>Tipo Pasajero</th>
-              
-              <!-- Bloqueo llegada -->
-              <th>Tiempo De Bloqueo Llegadas</th>
-              <th style="color: red">Fin Bloqueo Llegadas</th>
 
-              <!-- Tiempo facturación pasajero -->
-              <th>RND Tiempo Facturación</th>
-              <th>Tiempo Facturación</th>
-              <th style="color: red">Fin Facturación</th>
+              <!-- Tiempo compra Ticket -->
+              <th>Tiempo Caja</th>
+              <th style="color: red">Fin Caja</th>
+              <th>RND Ocupacion</th>
+              <th>ocupacion Mesa</th>
 
-              <!-- Tiempo venta billete -->
-              <th>RND Venta Billete</th>
-              <th>Tiempo Venta Billete</th>
-              <th style="color: red">Fin Venta Billete</th>
+              <!-- Tiempo Preparacion Comida -->
+              <th>RND</th>
+              <th>Tiempo Entrega</th>
+              <th>RND Tipo Pedido</th>
+              <th>Tipo Pedido</th>
+              <th>Tiempo Preparacion</th>
+              <th style="color: red">Fin Preparacion1</th>
+              <th style="color: red">Fin Preparacion2</th>
 
-              <!-- Tiempo chequeo billete -->
-              <th>RND 1 Chequeo Billete</th>
-              <th>RND 2 Chequeo Billete</th>
-              <th>Tiempo Chequeo Billete</th>
-              <th style="color: red">Fin Chequeo Billete</th>
+              <!-- Tiempo Consumicion -->
+              <th>RND Consumicion</th>
+              <th>Tiempo Consumicion</th>
+              <th style="color: red">Fin Consumicion</th>
 
-              <!-- Bloqueo Chequeo -->
-              <th>Tiempo De Bloqueo Chequeo</th>
-              <th style="color: red">Fin Bloqueo Chequeo</th>
+              <!-- Tiempo Utilizacion Mesa -->
+              <th>RND Utilizacion Mesa</th>
+              <th>Tiempo Utilizacion Mesa</th>
+              <th style="color: red">Fin Utilizacion Mesa</th>
 
-              <!-- Tiempo control metales -->
-              <th>RND Control Metales</th>
-              <th>Tiempo Control Metales</th>
-              <th style="color: red">Fin Control Metales</th>
-
-              <!-- Pase de venta a facturacion -->
-              <th>RND Pase Entre Venta y Facturación</th>
-              <th>Tiempo Pase Entre Venta y Facturación</th>
-              <th>Fin Pase Entre Venta y Facturación</th>
-
-              <!-- Pase entre facturacion y control -->
-              <th>RND Pase entre Facturación y Control</th>
-              <th>Tiempo Pase entre Facturación y Control</th>
-              <th>Fin Pase entre Facturación y Control</th>
-
-              <!-- Pase entre chequeo y control -->
-              <th>RND Pase Entre Chequeo y Control</th>
-              <th>Tiempo Pase Entre Chequeo y Control</th>
-              <th>Fin Pase Entre Chequeo y Control</th>
-
-              <!-- Pase entre control y embarque -->
-              <th>RND Pase Entre Control y Embarque</th>
-              <th>Tiempo Pase Entre Control y Embarque</th>
-              <th>Fin Pase Entre Control y Embarque</th>
-
-              <!-- Empleado Facturación -->
+              <!-- Empleado Caja -->
               <th>Estado Empleado</th>
-              <th>Cola Facturacion</th>
+              <th>Cola Caja</th>
 
-              <!-- Empleado Venta Billete -->
-              <th>Estado Empleado</th>
-              <th>Cola Venta</th>
-
-              <!-- Empleado Chequeo Billete -->
-              <th>Estado Empleado</th>
-              <th>Cola Chequeo</th>
-              <th>Tiempo Remanente Chequeo</th>
-
-              <!-- Empleado Control Metales -->
-              <th>Estado Empleado</th>
-              <th>Cola Control</th>
+              <!-- Empleados Preparacion -->
+              <th>Estado Empleado1</th>
+              <th>Estado Empleado2</th>
+              <th>Cola Preparacion</th>
 
               <!-- Métricas -->
               <th>Total Pasajeros A</th>
               <th>Total Pasajeros B</th>
               <th>Total Pasajeros C</th>
-              <th>Total Pasajeros</th>
-              <th>Acumulador Tiempo Pasajeros en Sistema</th>
-              <th>Acumulador Tiempo Ocioso del Agente de Control</th>
-              <th>Cantidad Pasajeros Atendidos por Empleado Venta</th>
-              <th>Cantidad Máxima de Pasajeros en Alguna Cola</th>
-              <th>Cantidad Máxima Pasajeros en Cola de Control</th>
+              <th>Acumulador Tiempo Clientes en Sistema</th>
+              <th>Acumulador Tiempo Ocioso Empleado Caja</th>
+              <th>Cantidad Máxima Clientes en Cola de Preparacion</th>
             </tr>
           </thead>
 
