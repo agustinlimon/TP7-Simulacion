@@ -11,6 +11,10 @@ export class Cliente {
     return this._segSalidaSist;
   }
 
+  public set segundoSalidaSistema(minuto: number) {
+    this._segSalidaSist = minuto;
+  }
+
   public constructor(id: number, tipoCliente: string, segundoLlegada: number) {
     this.id = id;
     this.tipoCliente = tipoCliente;

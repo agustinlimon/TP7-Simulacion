@@ -70,7 +70,7 @@ export abstract class Simulador {
   }
 
   // Obtención del tipo de Cliente según la probabilidad asociada.
-  public getTipoPasajero(probTipoCli: number, tiposCli: string[]): string {
+  public getTipoCliente(probTipoCli: number, tiposCli: string[]): string {
     for (let i: number = 0; i < this.probTiposClientes.length; i++) {
       if (probTipoCli < this.probTiposClientes[i])
         return tiposCli[i];
