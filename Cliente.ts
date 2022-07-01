@@ -3,13 +3,13 @@ import { EstadoCliente } from "./EstadoCliente";
 export class Cliente {
   private id: number;
   private tipoCliente: string;
-  private minutoLlegada: number;
+  private segundoLlegada: number;
   private estado: EstadoCliente;
 
-  public constructor(id: number, tipoCliente: string, minutoLlegada: number) {
+  public constructor(id: number, tipoCliente: string, segundoLlegada: number) {
     this.id = id;
     this.tipoCliente = tipoCliente;
-    this.minutoLlegada = minutoLlegada;
+    this.segundoLlegada = segundoLlegada;
   }
 
   public comprandoComida(): void{
@@ -52,7 +52,7 @@ export class Cliente {
     return this.tipoCliente;
   }
 
-  public getMinutoLlegada(): number {
-    return this.minutoLlegada;
+  public getSegundoLlegada(): number {
+    return this.segundoLlegada;
   }
 }

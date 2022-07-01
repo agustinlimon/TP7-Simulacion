@@ -93,7 +93,6 @@ export abstract class Simulador {
     }
   }
   
-
   // Cálculo del tiempo de Consumicion pedido, que tiene distribución uniforme.
   public getTiempoConsumicionPedido(rndTiempoConsumicion: number): number {
     let tiempo: number = this.aTiempoConsumicionPedido + rndTiempoConsumicion * (this.bTiempoConsumicionPedido - this.aTiempoConsumicionPedido);
@@ -105,7 +104,6 @@ export abstract class Simulador {
     let tiempo: number = this.aTiempoUtilizacionMesa + rndTiempoUtilizacion * (this.bTiempoUtilizacionMesa - this.aTiempoUtilizacionMesa);
     return tiempo;
   }
-
 
   // Cálculo del tiempo de entrega pedido, que tiene distribución exponencial.
   public getTiempoEntregaPedido(rndTiempoEntrega: number): number {
