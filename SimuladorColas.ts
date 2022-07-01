@@ -301,48 +301,15 @@ export class SimuladorColas extends Simulador {
           break;
         }
 
-        case Evento.FIN_BLOQUEO_CHEQUEO: {
-          finBloqueoEmpleadoChequeo = -1;
-
-          // Generamos la llegada del siguiente bloqueo.
-          rndValorbeta = Math.random();
-          tiempoEntreBloqueos = this.rungeKutta.getTiempoEntreAtentados(0, this.relojEnOchentaLlegadas, 0.01, rndValorbeta);
-          this.rkAtentados.push(this.rungeKutta.getMatrizRK());
-          proximoBloqueo = (reloj + tiempoEntreLlegadas);
-
-          let pasajeroBloqueado: Pasajero = pasajerosEnSistema.find(pasajero => pasajero.getEstado() === EstadoPasajero.BLOQUEADO_EN_CHEQUEO);
-          if (pasajeroBloqueado != null) {
-            finChequeoBillete = (reloj + tiempoRemanenteChequeo);
-            tiempoRemanenteChequeo = -1;
-            pasajeroBloqueado.chequeandoBillete();
-            empleadoChequeoBillete.ocupado();
-          }
-          else {
-            empleadoChequeoBillete.libre();
-          }
-          break;
-        }
-
         // Fin de simulación.
         case Evento.FIN_SIMULACION: {
           // Calculamos el tiempo de permanencia en el sistema de los pasajeros que quedaron en el sistema.
-          for (let i: number = 0; i < pasajerosEnSistema.length; i++) {
-            acuTiempoPasajeros += reloj - pasajerosEnSistema[i].getMinutoLlegada();
+          for (let i: number = 0; i < clientesEnSistema.length; i++) {
+            acuTiempoClientes += reloj - clientesEnSistema[i].getSegundoLlegada();
           }
           break;
         }
       }
-
-      // Comparamos la cantidad de pasajeros en todas las colas en la iteración actual.
-      cantMaxPasajerosEnAlgunaCola = Math.max(
-        colaVentaBillete.length,
-        colaFacturacion.length,
-        colaChequeoBillete.length,
-        colaControlMetales.length,
-        cantMaxPasajerosEnAlgunaCola
-      );
-
-      cantMaxPasajerosEnColaControl = Math.max(colaControlMetales.length, cantMaxPasajerosEnColaControl);
 
       // Cargamos la matriz de estado a mostrar solo para el rango pasado por parámetro.
       if ((i >= eventoDesde && i <= indiceHasta) || i == cantEventos-1) {
@@ -428,24 +395,21 @@ export class SimuladorColas extends Simulador {
           cantMaxPasajerosEnColaControl.toString()
         );
     
-        for (let i: number = 0; i < pasajerosEnSistema.length; i++) {
+        for (let i: number = 0; i < clientesEnSistema.length; i++) {
           evento.push(
-            pasajerosEnSistema[i].getId().toString(),
-            pasajerosEnSistema[i].getTipoPasajero(),
+            clientesEnSistema[i].getId().toString(),
+            clientesEnSistema[i].getTipoPasajero(),
             EstadoPasajero[pasajerosEnSistema[i].getEstado()],
-            pasajerosEnSistema[i].getMinutoLlegada().toFixed(4),
-            pasajerosEnSistema[i].minutoLlegadaDeVentaAFacturacion.toFixed(4),
-            pasajerosEnSistema[i].minutoLlegadaDeFacturacionAControl.toFixed(4),
-            pasajerosEnSistema[i].minutoLlegadaDeChequeoBilleteAControl.toFixed(4),
-            pasajerosEnSistema[i].minutoLlegadaDeControlAEmbarque.toFixed(4),
+            clientesEnSistema[i].getMinutoLlegada().toFixed(4),
+            clientesEnSistema[i].minutoLlegadaDeVentaAFacturacion.toFixed(4),
           );
         }
 
         this.matrizEstado.push(evento);
 
         // Actualizamos la cantidad de pasajeros máximos que hubo en el sistema.
-        if (pasajerosEnSistema.length > this.cantMaxPasajeros)
-          this.cantMaxPasajeros = pasajerosEnSistema.length;
+        if (clientesEnSistema.length > this.cantMaxClientes)
+          this.cantMaxClientes = clientesEnSistema.length;
       }
 
       // Reseteamos algunas variables.
