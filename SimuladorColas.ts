@@ -113,10 +113,13 @@ export class SimuladorColas extends Simulador {
           finCaja,
           finPreparacion1,
           finPreparacion2,
-          finConsumicion,
-          finUtilizacionMesa
         ];
-
+        for (let i: number = 0; i < clientesEnSistema.length; i++) {
+          let cliente: Cliente = clientesEnSistema[i];
+          eventosCandidatos.push(
+            cliente.segundoSalidaSistema
+          );
+        }
         reloj = Utils.getMenorMayorACero(eventosCandidatos);
         tipoEvento = this.getSiguienteEvento(eventosCandidatos);
       }
@@ -612,7 +615,10 @@ export class SimuladorColas extends Simulador {
     let menor: number = Utils.getMenorMayorACero(tiemposEventos);
     for (let i: number = 0; i < tiemposEventos.length; i++) {
       if (tiemposEventos[i] === menor) {
-        return Evento[Evento[i+1]];
+        if (i < 4) return Evento[Evento[i+1]];
+        else {
+          return Evento.SALIDA_CLIENTE;
+        }
       }
     }
     return -1;

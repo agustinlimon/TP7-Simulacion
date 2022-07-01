@@ -22,7 +22,7 @@ const tablaSimulacion: HTMLTableElement = document.getElementById('tablaSimulaci
 const cantEncabezadosTablaSimulacion = tablaSimulacion.rows[0].cells.length;
 const cantSubEncabezadosTablaSimulacion = tablaSimulacion.rows[1].cells.length;
 const indicesEventosCandidatos: number[] = [6, 10, 18, 19, 22, 25, 26, 29];
-const colPasajeros: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Segundo llegada'];
+const colPasajeros: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Segundo llegada', 'Segundo Salida'];
 
 // Definición de botones de la interfaz de usuario.
 const btnSimular: HTMLButtonElement = document.getElementById('btnSimular') as HTMLButtonElement;

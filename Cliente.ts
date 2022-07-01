@@ -5,11 +5,17 @@ export class Cliente {
   private tipoCliente: string;
   private segundoLlegada: number;
   private estado: EstadoCliente;
+  private _segSalidaSist: number;
+
+  public get segundoSalidaSistema() {
+    return this._segSalidaSist;
+  }
 
   public constructor(id: number, tipoCliente: string, segundoLlegada: number) {
     this.id = id;
     this.tipoCliente = tipoCliente;
     this.segundoLlegada = segundoLlegada;
+    this._segSalidaSist = -1;
   }
 
   public comprandoComida(): void{
