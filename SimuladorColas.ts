@@ -53,8 +53,6 @@ export class SimuladorColas extends Simulador {
     // Compra Ticket.
     let tiempoCaja: number = -1;
     let finCaja: number = -1;
-    let rndOcupaMesa: number = -1;
-    let ocupaMesa: string = '';
 
     // Preparacion Comida.
     let rndTiempoEntrega: number = -1;
@@ -64,6 +62,8 @@ export class SimuladorColas extends Simulador {
     let tiempoPreparacion: number = -1;
     let finPreparacion1: number = -1;
     let finPreparacion2: number = -1;
+    let rndOcupaMesa: number = -1;
+    let ocupaMesa: string = '';
 
     // Consumicion Comida.
     let rndConsumicion: number = -1;
@@ -454,90 +454,58 @@ export class SimuladorColas extends Simulador {
           Evento[tipoEvento],
           reloj.toFixed(4),
 
-          rndValorbeta.toFixed(4),
-          tiempoEntreBloqueos.toFixed(4),
-          proximoBloqueo.toFixed(4),
-          rndObjetivoBloqueo.toFixed(4),
-          objetivoBloqueo,
-    
-          rndLlegada.toFixed(4),
+          rnd1Llegada.toFixed(4),
+          rnd2Llegada.toFixed(4),
           tiempoEntreLlegadas.toFixed(4),
           proximaLlegada.toFixed(4),
-          rndTipoPasajero.toFixed(4),
-          tipoPasajero,
+          rndTipoCliente.toFixed(4),
+          tipoCliente,
+    
+          tiempoCaja.toFixed(4),
+          finCaja.toFixed(4),
 
-          tiempoBloqueoCliente.toFixed(4),
-          finBloqueoCliente.toFixed(4),
-    
-          rndFacturacion.toFixed(4),
-          tiempoFacturacion.toFixed(4),
-          finFacturacion.toFixed(4),
-    
-          rndVentaBillete.toFixed(4),
-          tiempoVentaBillete.toFixed(4),
-          finVentaBillete.toFixed(4),
-    
-          rnd1ChequeoBillete.toFixed(4),
-          rnd2ChequeoBillete.toFixed(4),
-          tiempoChequeoBillete.toFixed(4),
-          finChequeoBillete.toFixed(4),
+          rndTiempoEntrega.toFixed(4),
+          tiempoEntrega.toFixed(4),
+          rndTipoPedido.toFixed(4),
+          tipoPedido,
+          tiempoPreparacion.toFixed(4),
+          finPreparacion1.toFixed(4),
+          finPreparacion2.toFixed(4),
+          rndOcupaMesa.toFixed(4),
+          ocupaMesa,
 
-          tiempoBloqueoEmpleadoChequeo.toFixed(4),
-          finBloqueoEmpleadoChequeo.toFixed(4),
-    
-          rndControlMetales.toFixed(4),
-          tiempoControlMetales.toFixed(4),
-          finControlMetales.toFixed(4),
-    
-          rndPaseEntreVentaYFacturacion.toFixed(4),
-          tiempoPaseEntreVentaYFacturacion.toFixed(4),
-          finPaseEntreVentaYFacturacion.toFixed(4),
-    
-          rndPaseEntreFacturacionYControl.toFixed(4),
-          tiempoPaseEntreFacturacionYControl.toFixed(4),
-          finPaseEntreFacturacionYControl.toFixed(4),
-    
-          rndPaseEntreChequeoYControl.toFixed(4),
-          tiempoPaseEntreChequeoYControl.toFixed(4),
-          finPaseEntreChequeoYControl.toFixed(4),
-    
-          rndPaseEntreControlYEmbarque.toFixed(4),
-          tiempoPaseEntreControlYEmbarque.toFixed(4),
-          finPaseEntreControlYEmbarque.toFixed(4),
+          rndConsumicion.toFixed(4),
+          tiempoConsumicion.toFixed(4),
+          finConsumicion.toFixed(4),
 
-          colaPasajerosBloqueadosEnIngreso.length.toString(),
+          rndUtilizacionMesa.toFixed(4),
+          tiempoUtilizacionMesa.toFixed(4),
+          finUtilizacionMesa.toFixed(4),
     
-          empleadoFacturacion.getEstado(),
-          colaFacturacion.length.toString(),
+          empleadoCaja.getEstado(),
+          colaCaja.length.toString(),
     
-          empleadoVentaBillete.getEstado(),
-          colaVentaBillete.length.toString(),
+          empleadoPreparacion1.getEstado(),
+          empleadoPreparacion2.getEstado(),
+          colaPreparacion.length.toString(),
     
-          empleadoChequeoBillete.getEstado(),
-          colaChequeoBillete.length.toString(),
-          tiempoRemanenteChequeo.toFixed(4),
-    
-          empleadoControlMetales.getEstado(),
-          colaControlMetales.length.toString(),
-    
-          totalPasajerosA.toString(),
-          totalPasajerosB.toString(),
-          totalPasajerosC.toString(),
-          totalPasajeros.toString(),
-          acuTiempoPasajeros.toFixed(4),
-          acuTiempoOciosoEmpControl.toFixed(4),
-          cantPasajerosAtentidosPorVenta.toString(),
-          cantMaxPasajerosEnAlgunaCola.toString(),
-          cantMaxPasajerosEnColaControl.toString()
+          totalClientesA.toString(),
+          totalClientesB.toString(),
+          totalClientesC.toString(),
+          totalClientes.toString(),
+          acuTiempoClientes.toFixed(4),
+          segTiempoOciosoEmpCajaDesde.toFixed(4),
+          acuTiempoOciosoEmpCaja.toString(),
+          cantMaxCliEnColaPrep.toString(),
         );
     
         for (let i: number = 0; i < clientesEnSistema.length; i++) {
           evento.push(
             clientesEnSistema[i].getId().toString(),
-            clientesEnSistema[i].getTipoPasajero(),
-            EstadoPasajero[pasajerosEnSistema[i].getEstado()],
-            clientesEnSistema[i].getMinutoLlegada().toFixed(4),
-            clientesEnSistema[i].minutoLlegadaDeVentaAFacturacion.toFixed(4),
+            clientesEnSistema[i].getTipoCliente(),
+            EstadoCliente[clientesEnSistema[i].getEstado()],
+            clientesEnSistema[i].getSegundoLlegada().toFixed(4),
+            clientesEnSistema[i].segundoSalidaSistema.toFixed(4),
           );
         }
 
@@ -549,36 +517,23 @@ export class SimuladorColas extends Simulador {
       }
 
       // Reseteamos algunas variables.
-      rndValorbeta = -1;
-      tiempoEntreBloqueos = -1;
-      rndObjetivoBloqueo = -1;
-      objetivoBloqueo = "";
-      rndLlegada = -1;
+      rnd1Llegada = -1;
+      rnd2Llegada = -1;
       tiempoEntreLlegadas = -1;
-      rndTipoPasajero = -1;
-      tipoPasajero = "";
-      tiempoBloqueoCliente = -1;
-      rndFacturacion = -1;
-      tiempoFacturacion = -1;
-      rndVentaBillete = -1;
-      tiempoVentaBillete = -1;
-      rnd1ChequeoBillete = -1;
-      rnd2ChequeoBillete = -1;
-      tiempoChequeoBillete = -1;
-      tiempoBloqueoEmpleadoChequeo = -1;
-      rndControlMetales = -1;
-      tiempoControlMetales = -1;
-      rndPaseEntreVentaYFacturacion = -1;
-      tiempoPaseEntreVentaYFacturacion = -1;
-      rndPaseEntreFacturacionYControl = -1;
-      tiempoPaseEntreFacturacionYControl = -1;
-      rndPaseEntreChequeoYControl = -1;
-      tiempoPaseEntreChequeoYControl = -1;
-      rndPaseEntreControlYEmbarque = -1;
-      tiempoPaseEntreControlYEmbarque = -1;
-
-
-
+      rndTipoCliente = -1;
+      tipoCliente = "";
+      tiempoCaja = -1;
+      rndTiempoEntrega = -1;
+      tiempoEntrega = -1;
+      rndTipoPedido = -1;
+      tipoPedido = "";
+      tiempoPreparacion = -1;
+      rndOcupaMesa = -1;
+      ocupaMesa = "";
+      rndConsumicion = -1;
+      tiempoConsumicion = -1;
+      rndUtilizacionMesa = -1;
+      tiempoUtilizacionMesa = -1;
     }
   }
 
