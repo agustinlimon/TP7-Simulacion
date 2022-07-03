@@ -17,6 +17,7 @@ export class RungeKutta {
     return this.matrizRK;
   }
 
+  // Obtenemos el tiempo de preparacion de un Cafe
   public getTiempoPreparacionCafe(t0: number, p: number, h: number): number {
     this.matrizRK = [];
     let fila: number[];
@@ -41,6 +42,7 @@ export class RungeKutta {
     return this.matrizRK[this.matrizRK.length-1][6] * 6;
   }
 
+  // Obtenemos el tiempo de preparacion de un Cafe con Medialunas
   public getTiempoPreparacionCafeYMedialuna(t0: number, p: number, h: number): number {
     this.matrizRK = [];
     let fila: number[];
@@ -65,6 +67,7 @@ export class RungeKutta {
     return this.matrizRK[this.matrizRK.length-1][6] * 6;
   }
 
+  // Obtenemos el tiempo de preparacion de un Menu
   public getTiempoPreparacionMenu(t0: number, p: number, h: number): number {
     this.matrizRK = [];
     let fila: number[];

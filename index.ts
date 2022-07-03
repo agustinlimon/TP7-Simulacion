@@ -96,24 +96,18 @@ const simular = () => {
   // Validamos los parámetros ingresados por el usuario.
   if (!validarParametros()) return;
 
-      var startTime = performance.now();
       HTMLUtils.limpiarTablaSimulacion(tablaSimulacion, cantEncabezadosTablaSimulacion, cantSubEncabezadosTablaSimulacion);
-      console.log(`La limpieza tardó ${performance.now() - startTime} milisegundos`);
 
       // Realizamos la simulación.
-      startTime = performance.now();
       simulador = new SimuladorColas();
       simulador.simular(n, eventoDesde, mediaLlegadaClientes, DesviacionLlegadaClientes, mediaFinEntregaPedido, AFinConsumicionPedido, BFinConsumicionPedido, AFinUtilizacionMesa, BFinUtilizacionMesa);
-      console.log(`La simulación tardó ${performance.now() - startTime} milisegundos`);
 
       matrizEstado = simulador.getMatrizEstado();
       cantMaxClientes = simulador.getCantMaxClientesEnSistema();
 
       // Cargamos la tabla a mostrar.
-      startTime = performance.now();
       HTMLUtils.completarEncabezadosClientes(cantMaxClientes, tablaSimulacion, colPasajeros);
       HTMLUtils.llenarTablaSimulacion(matrizEstado, indicesEventosCandidatos, tablaSimulacion);
-      console.log(`La renderización tardó ${performance.now() - startTime} milisegundos`);
       HTMLUtils.mostrarSeccion(divTablaSimulacion);
 }
 

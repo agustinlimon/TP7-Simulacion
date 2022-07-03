@@ -61,7 +61,7 @@ export abstract class Simulador {
     return -media * Math.log(1 - rnd + 9e-16);
   }
 
-  // Cálculo del tiempo entre llegadas, que tiene distribución normal.
+  // Cálculo del tiempo entre llegadas de clientes, que tiene distribución normal.
   public getTiempoEntreLlegadas(rndTiempoChequeo1: number, rndTiempoChequeo2: number): number {
     if (rndTiempoChequeo1 === 0) rndTiempoChequeo1 += 1e-16;
     if (rndTiempoChequeo2 === 0) rndTiempoChequeo2 += 1e-16;
@@ -85,7 +85,7 @@ export abstract class Simulador {
     }
   }
 
-  // Ocupa mesa para consumir en la cafeteria según la probabilidad asociada.
+  // Ocupa o no mesa para consumir en la cafeteria según la probabilidad asociada.
   public getOcupacionMesa(probOcupa: number, opciones: string[]): string {
     for (let i: number = 0; i < this.probOcupaMesa.length; i++) {
       if (probOcupa < this.probOcupaMesa[i])
