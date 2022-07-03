@@ -137,6 +137,7 @@ export class SimuladorColas extends Simulador {
 
         // Llegada de un cliente.
         case Evento.LLEGADA_CLIENTE: {
+          console.log("llegada")
           // Obtenemos el tipo de cliente.
           rndTipoCliente = Math.random();
           tipoCliente = this.getTipoCliente(rndTipoCliente, ["A", "B", "C"]);
@@ -200,6 +201,7 @@ export class SimuladorColas extends Simulador {
 
         // Fin de Compra Ticket.
         case Evento.FIN_CAJA: {
+          console.log("fin")
           finCaja = -1;
           // Preguntamos si hay alguien en la cola.
           if (colaCaja.length === 0) {
@@ -250,7 +252,7 @@ export class SimuladorColas extends Simulador {
                 break;
               }
             }
-            finPreparacion1 = tiempoEntrega + tiempoPreparacion;
+            finPreparacion1 = reloj + tiempoEntrega + tiempoPreparacion;
           }
           else if (empleadoPreparacion2.estaLibre()){
             clienteAtendido.siendoAtendidoEmp2();
@@ -284,7 +286,7 @@ export class SimuladorColas extends Simulador {
                 break;
               }
             }
-            finPreparacion2 = tiempoEntrega + tiempoPreparacion;
+            finPreparacion2 = reloj + tiempoEntrega + tiempoPreparacion;
           }
           else {
             clienteAtendido.enEsperaPreparacion();
@@ -354,7 +356,7 @@ export class SimuladorColas extends Simulador {
                 break;
               }
             }
-            finPreparacion1 = tiempoEntrega + tiempoPreparacion;
+            finPreparacion1 = reloj + tiempoEntrega + tiempoPreparacion;
           }
           break;
         }
@@ -420,15 +422,20 @@ export class SimuladorColas extends Simulador {
                 break;
               }
             }
-            finPreparacion2 = tiempoEntrega + tiempoPreparacion;
+            finPreparacion2 = reloj + tiempoEntrega + tiempoPreparacion;
           }
           break;
         }
 
         // Salida de cliente.
         case Evento.SALIDA_CLIENTE: {
+          if (finConsumicion === reloj)
+            finConsumicion = -1;
+          if (finUtilizacionMesa === reloj)
+            finUtilizacionMesa = -1;
+            
           // Buscamos el cliente y lo eliminamos del sistema.
-          let indiceCliente: number = clientesEnSistema.findIndex(cli => cli.getEstado() === (EstadoCliente.CONSUMIENDO_COMIDA || EstadoCliente.UTILIZANDO_MESA) && cli.segundoSalidaSistema === reloj);
+          let indiceCliente: number = clientesEnSistema.findIndex(cli => (cli.getEstado() === EstadoCliente.CONSUMIENDO_COMIDA || EstadoCliente.UTILIZANDO_MESA) && cli.segundoSalidaSistema === reloj);
           let clienteAtendido: Cliente = clientesEnSistema[indiceCliente];
 
           // Calculamos el tiempo de permanencia.
