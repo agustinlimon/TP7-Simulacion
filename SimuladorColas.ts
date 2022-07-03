@@ -42,7 +42,7 @@ export class SimuladorColas extends Simulador {
     let tipoEvento: Evento;
     let reloj: number = 0;
 
-    // Llegada de un pasajero.
+    // Llegada de un cliente.
     let rnd1Llegada: number = -1;
     let rnd2Llegada: number = -1;
     let tiempoEntreLlegadas: number = -1;
@@ -84,7 +84,7 @@ export class SimuladorColas extends Simulador {
     let empleadoPreparacion2 = new Empleado();
     let colaPreparacion: Cliente[] = [];
 
-    // Pasajeros en el sistema.
+    // Clientes en el sistema.
     let clientesEnSistema: Cliente[] = [];
 
     // Métricas.
@@ -137,7 +137,6 @@ export class SimuladorColas extends Simulador {
 
         // Llegada de un cliente.
         case Evento.LLEGADA_CLIENTE: {
-          console.log("llegada")
           // Obtenemos el tipo de cliente.
           rndTipoCliente = Math.random();
           tipoCliente = this.getTipoCliente(rndTipoCliente, ["A", "B", "C"]);
@@ -149,7 +148,7 @@ export class SimuladorColas extends Simulador {
           tiempoEntreLlegadas = this.getTiempoEntreLlegadas(rnd1Llegada, rnd2Llegada);
           proximaLlegada = (reloj + tiempoEntreLlegadas);
 
-          // Creamos el objeto cliente para calcularle tiempos dependiendo de su tipo.
+          // Creamos el objeto cliente para usarlo dependiendo de su tipo.
           let cliente: Cliente = new Cliente(
             totalClientes,
             tipoCliente,
@@ -190,7 +189,7 @@ export class SimuladorColas extends Simulador {
               break;
             }
   
-            // Llega un cliente de tipo C. Esta de pasada.
+            // Llega un cliente de tipo C. Esta de pasada por el sistema.
             case "C": {
               totalClientesC++;
               break;
@@ -201,7 +200,6 @@ export class SimuladorColas extends Simulador {
 
         // Fin de Compra Ticket.
         case Evento.FIN_CAJA: {
-          console.log("fin")
           finCaja = -1;
           // Preguntamos si hay alguien en la cola.
           if (colaCaja.length === 0) {
@@ -212,40 +210,39 @@ export class SimuladorColas extends Simulador {
             empleadoCaja.ocupado();
             colaCaja.shift().comprandoComida();
 
-            // Generamos el tiempo de facturación.
             tiempoCaja = 45;
             finCaja = (reloj + tiempoCaja);
           }
           
-          // Buscamos al cliente que termino de ser atendido en caja y fin de Preparacion. 
+          // Buscamos al cliente que termino de ser atendido en la caja. 
           let clienteAtendido: Cliente = clientesEnSistema.find(cli => cli.getEstado() === EstadoCliente.COMPRANDO_COMIDA);
 
+          // Si hay algun empleado libre calculamos el tiempo de Preparacion.
           if (empleadoPreparacion1.estaLibre()){
             clienteAtendido.siendoAtendidoEmp1();
             empleadoPreparacion1.ocupado();
 
+            // Calculamos el tiempo entrega
             rndTiempoEntrega = Math.random();
             tiempoEntrega = this.getTiempoEntregaPedido(rndTiempoEntrega);
 
+            // Determinamos el tipo de pedido
             rndTipoPedido = Math.random();
             tipoPedido = this.getTipoPedido(rndTipoPedido, ["Cafe", "CafeYMedialuna", "Menu"]);
 
             switch (tipoPedido) {
-              // Llega un cliente de tipo A. Va a comprar algo.
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
                 this.rkCafe.push(this.rungeKutta.getMatrizRK());
                 break;
               }
       
-              // Llega un pasajero de tipo B. Va a utilizar una mesa.
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
                 this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
                 break;
               }
       
-              // Llega un cliente de tipo C. Esta de pasada
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
                 this.rkMenu.push(this.rungeKutta.getMatrizRK());
@@ -258,28 +255,27 @@ export class SimuladorColas extends Simulador {
             clienteAtendido.siendoAtendidoEmp2();
             empleadoPreparacion2.ocupado();
 
+            // Calculamos el tiempo entrega
             rndTiempoEntrega = Math.random();
             tiempoEntrega = this.getTiempoEntregaPedido(rndTiempoEntrega);
 
+            // Determinamos el tipo de pedido
             rndTipoPedido = Math.random();
             tipoPedido = this.getTipoPedido(rndTipoPedido, ["Cafe", "CafeYMedialuna", "Menu"]);
 
             switch (tipoPedido) {
-              // Llega un cliente de tipo A. Va a comprar algo.
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
                 this.rkCafe.push(this.rungeKutta.getMatrizRK());
                 break;
               }
       
-              // Llega un pasajero de tipo B. Va a utilizar una mesa.
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
                 this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
                 break;
               }
       
-              // Llega un cliente de tipo C. Esta de pasada
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
                 this.rkMenu.push(this.rungeKutta.getMatrizRK());
@@ -298,11 +294,11 @@ export class SimuladorColas extends Simulador {
         // Fin de Preparacion del Empleado 1.
         case Evento.FIN_ENTREGA_1: {
           finPreparacion1 = -1;
-          // Buscamos el cliente atendido.
+          // Buscamos el cliente que esta siendo atendido.
           let indiceCliente: number = clientesEnSistema.findIndex(cli => cli.getEstado() === EstadoCliente.SIENDO_ATENDIDO_EMP1);
           let clienteAtendido: Cliente = clientesEnSistema[indiceCliente];
 
-          //Calculamos si va a usar una mesa
+          // Calculamos si va a usar una mesa y por cuanto tiempo.
           rndOcupaMesa = Math.random();
           ocupaMesa = this.getOcupacionMesa(rndOcupaMesa, ["SI", "NO"]);
           if (ocupaMesa === "SI"){
@@ -327,7 +323,7 @@ export class SimuladorColas extends Simulador {
             // Quitamos a un cliente de la cola y cambiamos su estado.
             colaPreparacion.shift().siendoAtendidoEmp1();
 
-            // Generamos el tiempo de Preparacion.
+            // Calculamos el tiempo de Preparacion.
             rndTiempoEntrega = Math.random();
             tiempoEntrega = this.getTiempoEntregaPedido(rndTiempoEntrega);
 
@@ -335,21 +331,18 @@ export class SimuladorColas extends Simulador {
             tipoPedido = this.getTipoPedido(rndTipoPedido, ["Cafe", "CafeYMedialuna", "Menu"]);
 
             switch (tipoPedido) {
-              // Llega un cliente de tipo A. Va a comprar algo.
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
                 this.rkCafe.push(this.rungeKutta.getMatrizRK());
                 break;
               }
       
-              // Llega un pasajero de tipo B. Va a utilizar una mesa.
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
                 this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
                 break;
               }
       
-              // Llega un cliente de tipo C. Esta de pasada
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
                 this.rkMenu.push(this.rungeKutta.getMatrizRK());
@@ -364,11 +357,11 @@ export class SimuladorColas extends Simulador {
         // Fin de chequeo de billete a un pasajero.
         case Evento.FIN_ENTREGA_2: {
           finPreparacion2 = -1;
-          // Buscamos el cliente atendido.
+          // Buscamos el cliente que esta siendo atendido.
           let indiceCliente: number = clientesEnSistema.findIndex(cli => cli.getEstado() === EstadoCliente.SIENDO_ATENDIDO_EMP2);
           let clienteAtendido: Cliente = clientesEnSistema[indiceCliente];
 
-          //Calculamos si va a usar una mesa
+          // Calculamos si va a usar una mesa y por cuanto tiempo.
           rndOcupaMesa = Math.random();
           ocupaMesa = this.getOcupacionMesa(rndOcupaMesa, ["SI", "NO"]);
           if (ocupaMesa === "SI"){
@@ -393,7 +386,7 @@ export class SimuladorColas extends Simulador {
             // Quitamos a un cliente de la cola y cambiamos su estado.
             colaPreparacion.shift().siendoAtendidoEmp2();
 
-            // Generamos el tiempo de Preparacion.
+            // Calculamos el tiempo de Preparacion.
             rndTiempoEntrega = Math.random();
             tiempoEntrega = this.getTiempoEntregaPedido(rndTiempoEntrega);
           
@@ -401,21 +394,18 @@ export class SimuladorColas extends Simulador {
             tipoPedido = this.getTipoPedido(rndTipoPedido, ["Cafe", "CafeYMedialuna", "Menu"]);
           
             switch (tipoPedido) {
-              // Llega un cliente de tipo A. Va a comprar algo.
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
                 this.rkCafe.push(this.rungeKutta.getMatrizRK());
                 break;
               }
             
-              // Llega un pasajero de tipo B. Va a utilizar una mesa.
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
                 this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
                 break;
               }
             
-              // Llega un cliente de tipo C. Esta de pasada
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
                 this.rkMenu.push(this.rungeKutta.getMatrizRK());
@@ -427,18 +417,18 @@ export class SimuladorColas extends Simulador {
           break;
         }
 
-        // Salida de cliente.
+        // Salida de un cliente del sistema ya sea porque termino de consumir su pedido o porque termino de ocupar la mesa.
         case Evento.SALIDA_CLIENTE: {
           if (finConsumicion === reloj)
             finConsumicion = -1;
           if (finUtilizacionMesa === reloj)
             finUtilizacionMesa = -1;
-            
+
           // Buscamos el cliente y lo eliminamos del sistema.
           let indiceCliente: number = clientesEnSistema.findIndex(cli => (cli.getEstado() === EstadoCliente.CONSUMIENDO_COMIDA || EstadoCliente.UTILIZANDO_MESA) && cli.segundoSalidaSistema === reloj);
           let clienteAtendido: Cliente = clientesEnSistema[indiceCliente];
 
-          // Calculamos el tiempo de permanencia.
+          // Calculamos el tiempo de permanencia en el sistema.
           let tiempoPermanencia: number = reloj - clienteAtendido.getSegundoLlegada();
           acuTiempoClientes += tiempoPermanencia;
           clientesEnSistema.splice(indiceCliente, 1);
@@ -454,6 +444,9 @@ export class SimuladorColas extends Simulador {
           break;
         }
       }
+
+      // Calculo de la ultima metrica
+      cantMaxCliEnColaPrep = Math.max(colaPreparacion.length, cantMaxCliEnColaPrep);
 
       // Cargamos la matriz de estado a mostrar solo para el rango pasado por parámetro.
       if ((i >= eventoDesde && i <= indiceHasta) || i == cantEventos-1) {
@@ -543,6 +536,7 @@ export class SimuladorColas extends Simulador {
     }
   }
 
+  // Metodo para determinar el siguiente evento de la simulación.
   public getSiguienteEvento(tiemposEventos: number[]): Evento {
     let menor: number = Utils.getMenorMayorACero(tiemposEventos);
     for (let i: number = 0; i < tiemposEventos.length; i++) {
