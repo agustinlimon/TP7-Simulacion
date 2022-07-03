@@ -45,7 +45,7 @@ let AFinUtilizacionMesa: number;
 let BFinUtilizacionMesa: number;
 
 //Ocultamos la seccion en donde esta la tabla.
-//HTMLUtils.ocultarSeccion(divTablaSimulacion);
+HTMLUtils.ocultarSeccion(divTablaSimulacion);
 HTMLUtils.ocultarSeccion(divRungeKutta);
 
 // Disparamos la simulación.

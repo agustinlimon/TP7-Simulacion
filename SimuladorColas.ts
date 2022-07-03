@@ -155,10 +155,10 @@ export class SimuladorColas extends Simulador {
             reloj
           );
 
-          clientesEnSistema.push(cliente);
           switch (tipoCliente) {
             // Llega un cliente de tipo A. Va a comprar algo.
             case "A": {
+              clientesEnSistema.push(cliente);
               totalClientesA++;
               if (empleadoCaja.estaLibre()) {
                 cliente.comprandoComida();
@@ -177,6 +177,7 @@ export class SimuladorColas extends Simulador {
   
             // Llega un pasajero de tipo B. Va a utilizar una mesa.
             case "B": {
+              clientesEnSistema.push(cliente);
               totalClientesB++;  
 
               // Generamos el tiempo de Utilizacion de la mesa.
@@ -492,9 +493,7 @@ export class SimuladorColas extends Simulador {
           totalClientesA.toString(),
           totalClientesB.toString(),
           totalClientesC.toString(),
-          totalClientes.toString(),
           acuTiempoClientes.toFixed(4),
-          segTiempoOciosoEmpCajaDesde.toFixed(4),
           acuTiempoOciosoEmpCaja.toString(),
           cantMaxCliEnColaPrep.toString(),
         );
