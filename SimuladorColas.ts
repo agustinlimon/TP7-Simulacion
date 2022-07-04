@@ -95,7 +95,7 @@ export class SimuladorColas extends Simulador {
     let acuTiempoClientes: number = 0;
     let segTiempoOciosoEmpCajaDesde: number = 0;
     let acuTiempoOciosoEmpCaja: number = 0;
-    let cantMaxCliEnColaPrep: number = 0;
+    let cantMaxCliEnColaCaja: number = 0;
 
     this.cantMaxClientes = 0;  
     
@@ -446,7 +446,7 @@ export class SimuladorColas extends Simulador {
       }
 
       // Calculo de la ultima metrica
-      cantMaxCliEnColaPrep = Math.max(colaPreparacion.length, cantMaxCliEnColaPrep);
+      cantMaxCliEnColaCaja = Math.max(colaCaja.length, cantMaxCliEnColaCaja);
 
       // Cargamos la matriz de estado a mostrar solo para el rango pasado por parámetro.
       if ((i >= eventoDesde && i <= indiceHasta) || i == cantEventos-1) {
@@ -495,7 +495,7 @@ export class SimuladorColas extends Simulador {
           totalClientesC.toString(),
           acuTiempoClientes.toFixed(4),
           acuTiempoOciosoEmpCaja.toString(),
-          cantMaxCliEnColaPrep.toString(),
+          cantMaxCliEnColaCaja.toString(),
         );
     
         for (let i: number = 0; i < clientesEnSistema.length; i++) {

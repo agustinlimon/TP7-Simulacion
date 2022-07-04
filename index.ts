@@ -21,7 +21,7 @@ const divRungeKutta: HTMLDivElement = document.getElementById('divRungeKutta') a
 const tablaSimulacion: HTMLTableElement = document.getElementById('tablaSimulacion') as HTMLTableElement;
 const cantEncabezadosTablaSimulacion = tablaSimulacion.rows[0].cells.length;
 const cantSubEncabezadosTablaSimulacion = tablaSimulacion.rows[1].cells.length;
-const indicesEventosCandidatos: number[] = [6, 10, 18, 19, 22, 25, 26, 29];
+const indicesEventosCandidatos: number[] = [6, 10, 16, 17, 22, 25];
 const colPasajeros: string[] = ['ID Pasajero', 'Tipo Pasajero', 'Estado', 'Segundo llegada', 'Segundo Salida'];
 
 // Definición de botones de la interfaz de usuario.
