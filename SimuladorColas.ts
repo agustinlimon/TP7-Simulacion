@@ -98,6 +98,10 @@ export class SimuladorColas extends Simulador {
     let cantMaxCliEnColaCaja: number = 0;
 
     this.cantMaxClientes = 0;  
+    let cafeFlag: boolean = false;
+    let cafeMedFlag: boolean = false;
+    let menuFlag: boolean = false;
+    
     
     for (let i: number = 0; i < cantEventos; i++) {
       evento = [];
@@ -233,19 +237,25 @@ export class SimuladorColas extends Simulador {
             switch (tipoPedido) {
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
-                this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                if (!cafeFlag)
+                  this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                cafeFlag = true;
                 break;
               }
       
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
-                this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                if (!cafeMedFlag)
+                  this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                cafeMedFlag = true;
                 break;
               }
       
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
-                this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                if (!menuFlag)
+                  this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                menuFlag = true;
                 break;
               }
             }
@@ -266,19 +276,25 @@ export class SimuladorColas extends Simulador {
             switch (tipoPedido) {
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
-                this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                if (!cafeFlag)
+                  this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                cafeFlag = true;
                 break;
               }
       
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
-                this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                if (!cafeMedFlag)
+                  this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                cafeMedFlag = true;
                 break;
               }
       
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
-                this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                if (!menuFlag)
+                  this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                menuFlag = true;
                 break;
               }
             }
@@ -333,19 +349,25 @@ export class SimuladorColas extends Simulador {
             switch (tipoPedido) {
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
-                this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                if (!cafeFlag)
+                  this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                cafeFlag = true;
                 break;
               }
       
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
-                this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                if (!cafeMedFlag)
+                  this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                cafeMedFlag = true;
                 break;
               }
       
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
-                this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                if (!menuFlag)
+                  this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                menuFlag = true;
                 break;
               }
             }
@@ -396,19 +418,25 @@ export class SimuladorColas extends Simulador {
             switch (tipoPedido) {
               case "Cafe": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafe(0, 95, 0.01);
-                this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                if (!cafeFlag)
+                  this.rkCafe.push(this.rungeKutta.getMatrizRK());
+                cafeFlag = true;
                 break;
               }
             
               case "CafeYMedialuna": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionCafeYMedialuna(0, 95, 0.01);
-                this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                if (!cafeMedFlag)
+                  this.rkCafeYMedialuna.push(this.rungeKutta.getMatrizRK());
+                cafeMedFlag = true;
                 break;
               }
             
               case "Menu": {
                 tiempoPreparacion = this.rungeKutta.getTiempoPreparacionMenu(0, 95, 0.01);
-                this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                if (!menuFlag)
+                  this.rkMenu.push(this.rungeKutta.getMatrizRK());
+                menuFlag = true;
                 break;
               }
             }
