@@ -9,6 +9,7 @@ const txtEventoDesde: HTMLInputElement = document.getElementById('txtEventoDesde
 const txtMediaLlegadaClientes: HTMLInputElement = document.getElementById('txtMediaLlegadaClientes') as HTMLInputElement;
 const txtDesEstLlegadaClientes: HTMLInputElement = document.getElementById('txtDesEstLlegadaClientes') as HTMLInputElement;
 const txtMediaFinEntregaPedido: HTMLInputElement = document.getElementById('txtMediaFinEntregaPedido') as HTMLInputElement;
+const txtVentaTicket: HTMLInputElement = document.getElementById('txtVentaTicket') as HTMLInputElement;
 const txtAFinConsumicionPedido: HTMLInputElement = document.getElementById('txtAFinConsumicionPedido') as HTMLInputElement;
 const txtBFinConsumicionPedido: HTMLInputElement = document.getElementById('txtBFinConsumicionPedido') as HTMLInputElement;
 const txtAFinUtilizacionMesa: HTMLInputElement = document.getElementById('txtAFinUtilizacionMesa') as HTMLInputElement;
@@ -39,6 +40,7 @@ let eventoDesde: number;
 let mediaLlegadaClientes: number;
 let DesviacionLlegadaClientes: number;
 let mediaFinEntregaPedido: number;
+let tiempoVenta: number;
 let AFinConsumicionPedido: number;
 let BFinConsumicionPedido: number;
 let AFinUtilizacionMesa: number;
@@ -100,7 +102,7 @@ const simular = () => {
 
       // Realizamos la simulación.
       simulador = new SimuladorColas();
-      simulador.simular(n, eventoDesde, mediaLlegadaClientes, DesviacionLlegadaClientes, mediaFinEntregaPedido, AFinConsumicionPedido, BFinConsumicionPedido, AFinUtilizacionMesa, BFinUtilizacionMesa);
+      simulador.simular(n, eventoDesde, mediaLlegadaClientes, DesviacionLlegadaClientes, mediaFinEntregaPedido, tiempoVenta, AFinConsumicionPedido, BFinConsumicionPedido, AFinUtilizacionMesa, BFinUtilizacionMesa);
 
       matrizEstado = simulador.getMatrizEstado();
       cantMaxClientes = simulador.getCantMaxClientesEnSistema();
@@ -123,6 +125,7 @@ function validarParametros(): boolean {
   mediaLlegadaClientes = Number(txtMediaLlegadaClientes.value);
   DesviacionLlegadaClientes = Number(txtDesEstLlegadaClientes.value);
   mediaFinEntregaPedido = Number(txtMediaFinEntregaPedido.value);
+  tiempoVenta = Number(txtVentaTicket.value);
   AFinConsumicionPedido = Number(txtAFinConsumicionPedido.value);
   BFinConsumicionPedido = Number(txtBFinConsumicionPedido.value);
   AFinUtilizacionMesa = Number(txtAFinUtilizacionMesa.value);
@@ -130,6 +133,10 @@ function validarParametros(): boolean {
 
   if (n <= 0) {
     alert('La cantidad de eventos a generar debe ser mayor a cero.');
+    return false;
+  }
+  if (tiempoVenta <= 0) {
+    alert('El tiempo de venta del ticket debe ser mayor a cero.');
     return false;
   }
   if (eventoDesde < 0 || eventoDesde > n) {

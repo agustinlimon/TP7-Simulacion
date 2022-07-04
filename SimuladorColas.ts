@@ -12,6 +12,7 @@ export class SimuladorColas extends Simulador {
     mediaLlegadaClientes: number, 
     DesviacionLlegadaClientes: number, 
     mediaFinEntregaPedido: number, 
+    tiempoVenta: number,
     AFinConsumicionPedido: number, 
     BFinConsumicionPedido: number, 
     AFinUtilizacionMesa: number, 
@@ -25,6 +26,7 @@ export class SimuladorColas extends Simulador {
     this.mediaTiempoEntreLlegadas = mediaLlegadaClientes;
     this.desviacionTiempoEntreLlegada = DesviacionLlegadaClientes;
     this.mediaTiempoEntregaPedido = mediaFinEntregaPedido;
+    this.tiempoVentaTicket = tiempoVenta;
     this.aTiempoConsumicionPedido = AFinConsumicionPedido;
     this.bTiempoConsumicionPedido = BFinConsumicionPedido;
     this.aTiempoUtilizacionMesa = AFinUtilizacionMesa;
@@ -171,7 +173,7 @@ export class SimuladorColas extends Simulador {
                 empleadoCaja.ocupado();
   
                 // El tiempo de atencion es constante.
-                tiempoCaja = 45;
+                tiempoCaja = tiempoVenta;
                 finCaja = (reloj + tiempoCaja);
               }
               else {
@@ -216,7 +218,7 @@ export class SimuladorColas extends Simulador {
             empleadoCaja.ocupado();
             colaCaja.shift().comprandoComida();
 
-            tiempoCaja = 45;
+            tiempoCaja = tiempoVenta;
             finCaja = (reloj + tiempoCaja);
           }
           

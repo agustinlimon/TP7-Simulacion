@@ -6,6 +6,8 @@ export abstract class Simulador {
 
   protected mediaTiempoEntregaPedido: number;
 
+  protected tiempoVentaTicket: number;
+
   protected aTiempoConsumicionPedido: number;
   protected bTiempoConsumicionPedido: number;
 
@@ -31,6 +33,7 @@ export abstract class Simulador {
     mediaLlegadaClientes: number, 
     DesviacionLlegadaClientes: number, 
     mediaFinEntregaPedido: number, 
+    tiempoVenta: number,
     AFinConsumicionPedido: number, 
     BFinConsumicionPedido: number, 
     AFinUtilizacionMesa: number, 
