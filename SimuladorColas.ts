@@ -17,6 +17,7 @@ export class SimuladorColas extends Simulador {
     AFinUtilizacionMesa: number, 
     BFinUtilizacionMesa: number): void {
     
+    // Creamos un vector con las probabilidades de los eventos.
     this.probTiposClientes = [0.3, 0.5, 1];
     this.probOcupaMesa = [0.5, 1];
     this.probTiposPedidos = [0.33, 0.66, 1];
@@ -93,10 +94,11 @@ export class SimuladorColas extends Simulador {
     let totalClientesC: number = 0;
     let totalClientes: number = 0;
     let acuTiempoClientes: number = 0;
-    let segTiempoOciosoEmpCajaDesde: number = 0;
-    let acuTiempoOciosoEmpCaja: number = 0;
+    let segTiempoOciosoEmp1PrepDesde: number = 0;
+    let acuTiempoOciosoEmp1Prep: number = 0;
     let cantMaxCliEnColaCaja: number = 0;
 
+    // Extras.
     this.cantMaxClientes = 0;  
     let cafeFlag: boolean = false;
     let cafeMedFlag: boolean = false;
@@ -225,6 +227,7 @@ export class SimuladorColas extends Simulador {
           if (empleadoPreparacion1.estaLibre()){
             clienteAtendido.siendoAtendidoEmp1();
             empleadoPreparacion1.ocupado();
+            acuTiempoOciosoEmp1Prep += reloj - segTiempoOciosoEmp1PrepDesde;
 
             // Calculamos el tiempo entrega
             rndTiempoEntrega = Math.random();
@@ -333,6 +336,7 @@ export class SimuladorColas extends Simulador {
           // Preguntamos si hay alguien en la cola.
           if (colaPreparacion.length === 0) {
             empleadoPreparacion1.libre();
+            segTiempoOciosoEmp1PrepDesde = reloj;
           }
           else {
             empleadoPreparacion1.ocupado();
@@ -376,7 +380,7 @@ export class SimuladorColas extends Simulador {
           break;
         }
 
-        // Fin de chequeo de billete a un pasajero.
+        // Fin de Preparacion del Empleado 2.
         case Evento.FIN_ENTREGA_2: {
           finPreparacion2 = -1;
           // Buscamos el cliente que esta siendo atendido.
@@ -473,7 +477,7 @@ export class SimuladorColas extends Simulador {
         }
       }
 
-      // Calculo de la ultima metrica
+      // Calculo de la ultima metrica.
       cantMaxCliEnColaCaja = Math.max(colaCaja.length, cantMaxCliEnColaCaja);
 
       // Cargamos la matriz de estado a mostrar solo para el rango pasado por parámetro.
@@ -522,7 +526,7 @@ export class SimuladorColas extends Simulador {
           totalClientesB.toString(),
           totalClientesC.toString(),
           acuTiempoClientes.toFixed(4),
-          acuTiempoOciosoEmpCaja.toString(),
+          acuTiempoOciosoEmp1Prep.toFixed(4),
           cantMaxCliEnColaCaja.toString(),
         );
     

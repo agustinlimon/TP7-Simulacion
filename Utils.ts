@@ -1,4 +1,5 @@
 export module Utils {
+  // Funcion para obtener el menor numero de un vector que sea mayor a cero.
   export function getMenorMayorACero(vec: number[]): number {
     let menor: number = vec[0];
     for (let i: number = 0; i < vec.length; i++) {

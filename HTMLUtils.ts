@@ -10,7 +10,7 @@ export module HTMLUtils {
     div.style.display = 'block';
   }
 
-  // Función que elimina todas las filas de la tabla HTML excepto los encabezados.
+  // Función que elimina todas las filas de la tabla html excepto los encabezados.
   export function limpiarTablaSimulacion(tabla: HTMLTableElement, cantEncabezados: number, cantSubEncabezados: number) {
     for (let i: number = tabla.rows.length; i > 2; i--)
       tabla.deleteRow(i - 1);
@@ -72,6 +72,7 @@ export module HTMLUtils {
     }
   }
 
+  // Crea la tabla html de RungeKutta.
   export function crearTablaRK(matriz: number[][], y: string): string {
     let tabla: string = '<div class="table-responsive scrollable row mb-3 mx-3">';
     tabla += '<table class="table table-hover table-bordered mx-3 mb-3">';

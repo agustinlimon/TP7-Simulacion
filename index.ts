@@ -44,7 +44,7 @@ let BFinConsumicionPedido: number;
 let AFinUtilizacionMesa: number;
 let BFinUtilizacionMesa: number;
 
-//Ocultamos la seccion en donde esta la tabla.
+// Ocultamos la seccion en donde esta la tabla.
 HTMLUtils.ocultarSeccion(divTablaSimulacion);
 HTMLUtils.ocultarSeccion(divRungeKutta);
 
